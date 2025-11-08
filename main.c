@@ -37,6 +37,15 @@ int main()
     srand(69);
     // y = x*w;
     float w = rand_float() * 10.0f; // by default 10.0 is treated as a double, 10.0f ensures that 10.0 is treated as float.
+    float eps = 1e-3;
+    float rate = 1e-3;
     printf("result = %f\n", cost(w));
+    for (size_t i=0; i<500; i++) {
+        float dcost = (cost(w+eps) - cost(w))/eps;
+        w -= rate*dcost;
+        printf("result = %f\n", cost(w));
+    }
+    printf("------------------------------\n");
+    printf("w = %f\n", w);
     return 0;
 }

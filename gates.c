@@ -3,31 +3,44 @@
 #include <time.h>
 #include <math.h>
 
+// define sample as an array of 3 floats.
+typedef float sample[3];
+
 // OR-GATE
-//float train[][3] = {
-//    {0, 0, 0},
-//    {0, 1, 1},
-//    {1, 0, 1},
-//    {1, 1, 1},
-//};
+sample or_train[] = {
+    {0, 0, 0},
+    {0, 1, 1},
+    {1, 0, 1},
+    {1, 1, 1},
+};
 
 // AND-GATE
-//float train[][3] = {
-//    {0, 0, 0},
-//    {0, 1, 0},
-//    {1, 0, 0},
-//    {1, 1, 1},
-//};
+sample and_train[] = {
+    {0, 0, 0},
+    {0, 1, 0},
+    {1, 0, 0},
+    {1, 1, 1},
+};
 
 // NAND-GATE
-float train[][3] = {
+sample nand_train[] = {
     {0, 0, 1},
     {0, 1, 1},
     {1, 0, 1},
     {1, 1, 0},
 };
 
-#define train_count (sizeof(train) / sizeof(train[0]))
+// XOR-GATE
+sample xor_train[] = {
+    {0, 0, 0},
+    {0, 1, 1},
+    {1, 0, 1},
+    {1, 1, 0},
+};
+
+#define train_count 4
+
+sample* train = xor_train;
 
 float sigmoidf(float x) {
     return 1.f / (1.f + expf(-x));

@@ -4,10 +4,17 @@
 #include <math.h>
 
 // OR-GATE
+//float train[][3] = {
+//    {0, 0, 0},
+//    {0, 1, 1},
+//    {1, 0, 1},
+//    {1, 1, 1},
+//};
+// AND-GATE
 float train[][3] = {
     {0, 0, 0},
-    {0, 1, 1},
-    {1, 0, 1},
+    {0, 1, 0},
+    {1, 0, 0},
     {1, 1, 1},
 };
 
@@ -52,7 +59,7 @@ int main(void)
 
     for (size_t i=0; i<100000; i++) {
         c = cost(w1, w2, b);
-        printf("%f\n", c);
+        //printf("%f\n", c);
         float dw1 = (cost(w1+eps, w2, b) - c)/eps;
         float dw2 = (cost(w1, w2+eps, b) - c)/eps;
         float db = (cost(w1, w2, b+eps) - c)/eps;
@@ -60,11 +67,9 @@ int main(void)
         w2 -= rate*dw2;
         b -= db;
     }
-    /*
     printf("w1 = %f, w2 = %f, b = %f, cost = %f\n", w1, w2, b, c);
     for (size_t i=0; i<2; i++)
         for (size_t j=0; j<2; j++)
             printf("%zu | %zu = %f\n", i, j, sigmoidf(i*w1 + j*w2 + b));
-    */
     return 0;
 }

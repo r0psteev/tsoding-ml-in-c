@@ -166,19 +166,44 @@ Xor learn(Xor m, Xor dXor, float rate) {
 }
 
 int main(void) {
+    srand(time(NULL));
     float rate = 1e-1;
     float eps = 1e-3;
+    float c;
 
     Xor m = rand_xor();
     for (size_t i=0; i<100000; i++) {
-        float c = cost(m);
-        printf("cost: %f\n", c);
+        c = cost(m);
+        //printf("cost: %f\n", c);
         Xor dXor = finite_difference(m, eps);
         m = learn(m, dXor, rate);
     }
-    print_xor(m);
+    printf("cost: %f\n", c);
+    //print_xor(m);
 
     for (size_t i = 0; i < 2; i++)
         for(size_t j=0; j<2; j++)
             printf("%zu ^ %zu = %f\n", i, j, forward(m, i, j));
+
+   printf("------------------------------------------------\n");
+   printf("\"OR\" Neuron\n");
+   for (size_t i=0; i<2; i++) {
+    for(size_t j=0; j<2; j++) {
+        printf("%zu | %zu = %f\n", i, j, sigmoidf(i*m.or_w1 + j*m.or_w2 + m.or_b));
+    }
+   }
+   printf("------------------------------------------------\n");
+   printf("\"NAND\" Neuron\n");
+   for (size_t i=0; i<2; i++) {
+    for(size_t j=0; j<2; j++) {
+        printf("%zu | %zu = %f\n", i, j, sigmoidf(i*m.nand_w1 + j*m.nand_w2 + m.nand_b));
+    }
+   }
+   printf("------------------------------------------------\n");
+   printf("\"AND\" Neuron\n");
+   for (size_t i=0; i<2; i++) {
+    for(size_t j=0; j<2; j++) {
+        printf("%zu | %zu = %f\n", i, j, sigmoidf(i*m.and_w1 + j*m.and_w2 + m.and_b));
+    }
+   }
 }
